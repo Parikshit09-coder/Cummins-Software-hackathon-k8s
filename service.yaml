@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cummins-backend
+  namespace: cummins
+  labels:
+    app: cummins-backend
+    tier: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: cummins-backend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cummins-frontend
+  namespace: cummins
+  labels:
+    app: cummins-frontend
+    tier: frontend
+spec:
+  type: NodePort
+  selector:
+    app: cummins-frontend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30007   
