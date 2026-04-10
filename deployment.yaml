@@ -6,6 +6,8 @@ metadata:
   labels:
     app: cummins-backend
     tier: backend
+    linked: by-aider
+    version: 1.1.0
 spec:
   replicas: 1
   selector:
@@ -59,6 +61,7 @@ metadata:
   labels:
     app: cummins-frontend
     tier: frontend
+    version: 1.1.0
 spec:
   replicas: 1
   selector:
@@ -75,7 +78,7 @@ spec:
         image: rohitg2304/cummins-frontend:421e785c418bf715463c53e5c70ee1a431705eff
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 5000
         resources:
           requests:
             memory: "64Mi"
@@ -86,12 +89,12 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 5000
           initialDelaySeconds: 10
           periodSeconds: 15
         readinessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 5000
           initialDelaySeconds: 5
           periodSeconds: 10
