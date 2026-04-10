@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cummins-backend
-  namespace: cummins
+  namespace: default
   labels:
     app: cummins-backend
     tier: backend
@@ -59,7 +59,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cummins-frontend
-  namespace: cummins
+  namespace: default
   labels:
     app: cummins-frontend
     tier: frontend
