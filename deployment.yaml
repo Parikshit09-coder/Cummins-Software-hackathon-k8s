@@ -35,10 +35,10 @@ spec:
               key: MONGO_URI
         resources:
           requests:
-            memory: "256Mi"
+            memory: "128Mi"
             cpu: "200m"
           limits:
-            memory: "1024Mi"
+            memory: "256Mi"
             cpu: "500m"
         # livenessProbe:
         #   httpGet:
@@ -83,10 +83,10 @@ spec:
         - containerPort: 5000
         resources:
           requests:
-            memory: "64Mi"
+            memory: "128Mi"
             cpu: "50m"
           limits:
-            memory: "768Mi"
+            memory: "256Mi"
             cpu: "100m"
         livenessProbe:
           httpGet:
