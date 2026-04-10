@@ -78,7 +78,7 @@ spec:
         image: rohitg2304/cummins-frontend:421e785c418bf715463c53e5c70ee1a431705eff
         imagePullPolicy: Always
         ports:
-        - containerPort: 5000
+        - containerPort: 80
         resources:
           requests:
             memory: "128Mi"
@@ -89,12 +89,12 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 5000
+            port: 80
           initialDelaySeconds: 10
           periodSeconds: 15
         readinessProbe:
           httpGet:
             path: /
-            port: 5000
+            port: 80
           initialDelaySeconds: 5
           periodSeconds: 10

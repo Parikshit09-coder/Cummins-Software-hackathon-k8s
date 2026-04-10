@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cummins-backend
+  namespace: cummins
   labels:
     app: cummins-backend
     tier: backend
@@ -20,6 +21,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cummins-frontend
+  namespace: cummins
   labels:
     app: cummins-frontend
     tier: frontend
@@ -32,4 +34,94 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30007   
+      nodePort: 30007
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cummins-backend
+  namespace: cummins
+  labels:
+    app: cummins-backend
+    tier: backend
+    version: 1.1.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cummins-backend
+  template:
+    metadata:
+      labels:
+        app: cummins-backend
+        tier: backend
+    spec:
+      containers:
+      - name: cummins-backend
+        image: rohitg2304/cummins-backend:421e785c418bf715463c53e5c70ee1a431705eff
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PORT
+          value: "5000"
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: cummins-secrets
+              key: MONGO_URI
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "200m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cummins-frontend
+  namespace: cummins
+  labels:
+    app: cummins-frontend
+    tier: frontend
+    version: 1.1.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cummins-frontend
+  template:
+    metadata:
+      labels:
+        app: cummins-frontend
+        tier: frontend
+    spec:
+      containers:
+      - name: cummins-frontend
+        image: rohitg2304/cummins-frontend:421e785c418bf715463c53e5c70ee1a431705eff
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80   # ✅ FIXED
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80   # ✅ FIXED
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80   # ✅ FIXED
+          initialDelaySeconds: 5
+          periodSeconds: 10
