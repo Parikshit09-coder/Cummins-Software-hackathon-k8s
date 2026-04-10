@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: cummins-backend
-        image: rohitg2304/cummins-backend:421e785c418bf715463c53e5c70ee1a431705eff
+        image: rohitg2304/cummins-backend:82d6ad8a2a122bf90b39e96ebb22f9a719a61e78
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -75,7 +75,7 @@ spec:
     spec:
       containers:
       - name: cummins-frontend
-        image: rohitg2304/cummins-frontend:421e785c418bf715463c53e5c70ee1a431705eff
+        image: rohitg2304/cummins-frontend:82d6ad8a2a122bf90b39e96ebb22f9a719a61e78
         imagePullPolicy: Always
         ports:
         - containerPort: 80
