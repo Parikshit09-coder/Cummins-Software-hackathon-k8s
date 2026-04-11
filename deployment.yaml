@@ -34,10 +34,10 @@ spec:
               key: MONGO_URI
         resources:
           requests:
-            memory: "256Mi"
+            memory: "1024Mi"
             cpu: "200m"
           limits:
-            memory: "512Mi"
+            memory: "1024Mi"
             cpu: "500m"
         # livenessProbe:
         #   httpGet:
